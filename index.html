@@ -19,6 +19,11 @@
   <header class="site-header" id="top">
     <a class="brand" href="#home" aria-label="العودة إلى الرئيسية"><span
         class="brand-mark">Y</span><span><b>YourBrand</b><small>للاستشارات القانونية</small></span></a>
+
+<button class="search-toggle" id="searchToggle" aria-label="فتح البحث">
+  <span>⌕</span>
+</button>
+
     <nav class="desktop-nav" aria-label="التنقل الرئيسي">
       <a href="#about">من نحن</a><a href="#services">خدماتنا</a><a href="#practice">مجالات العمل</a><a href="#team">فريق
         المحامين</a><a href="#insights">المعرفة</a><a href="#faq">الأسئلة الشائعة</a><a href="#contact">تواصل معنا</a>
@@ -32,6 +37,41 @@
       معنا</a>
     <a class="button button-gold" href="#contact">احجز استشارتك <span>↗</span></a>
   </div>
+
+  <!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+
+  <button class="search-close" id="searchClose" aria-label="إغلاق البحث">
+    ×
+  </button>
+
+  <div class="search-container">
+
+    <div class="search-label">
+      <span>⌕</span>
+      <span>البحث في الموقع</span>
+    </div>
+
+    <div class="search-input-wrap">
+      <input
+        type="search"
+        id="siteSearch"
+        placeholder="ابحث عن خدمة، مجال، مقال أو سؤال..."
+        autocomplete="off"
+      />
+      <span class="search-key">ESC</span>
+    </div>
+
+    <div class="search-results" id="searchResults">
+
+      <p class="search-hint">
+        ابدأ بكتابة ما تبحث عنه...
+      </p>
+
+    </div>
+
+  </div>
+</div>
 
   <button class="light-switch" id="lightSwitch" aria-label="تشغيل وإطفاء النور">
     💡

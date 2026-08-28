@@ -29,3 +29,371 @@ if (lightSwitch) {
         );
     });
 }
+
+/* =========================================
+   SITE SEARCH
+========================================= */
+
+const searchToggle = document.getElementById("searchToggle");
+const searchOverlay = document.getElementById("searchOverlay");
+const searchClose = document.getElementById("searchClose");
+const siteSearch = document.getElementById("siteSearch");
+const searchResults = document.getElementById("searchResults");
+
+
+/* البيانات التي سيبحث فيها الموقع */
+
+const searchableContent = [
+
+    // Services
+    {
+        title: "الاستشارات القانونية",
+        category: "خدماتنا",
+        keywords: "استشارة استشارات رأي قانوني قانون",
+        link: "#services"
+    },
+
+    {
+        title: "القضايا الجنائية",
+        category: "خدماتنا",
+        keywords: "جنائي جنائية قضايا محاكم دفاع",
+        link: "#services"
+    },
+
+    {
+        title: "القضايا المدنية",
+        category: "خدماتنا",
+        keywords: "مدني مدنية نزاعات قضايا",
+        link: "#services"
+    },
+
+    {
+        title: "القضايا التجارية",
+        category: "خدماتنا",
+        keywords: "تجاري تجارة شركات أعمال",
+        link: "#services"
+    },
+
+    {
+        title: "قانون الشركات",
+        category: "خدماتنا",
+        keywords: "شركات تأسيس حوكمة أعمال",
+        link: "#services"
+    },
+
+    {
+        title: "العقود والاتفاقيات",
+        category: "خدماتنا",
+        keywords: "عقود اتفاقيات صياغة مراجعة توقيع",
+        link: "#services"
+    },
+
+    {
+        title: "المنازعات العقارية",
+        category: "خدماتنا",
+        keywords: "عقار عقارات ملكية تطوير نزاع",
+        link: "#services"
+    },
+
+    {
+        title: "قضايا الأسرة",
+        category: "خدماتنا",
+        keywords: "أسرة عائلة زواج طلاق أحوال شخصية",
+        link: "#services"
+    },
+
+
+    // Practice
+    {
+        title: "قانون الشركات والأعمال",
+        category: "مجالات العمل",
+        keywords: "شركات أعمال تجاري مؤسسة",
+        link: "#practice"
+    },
+
+    {
+        title: "النزاعات",
+        category: "مجالات العمل",
+        keywords: "نزاعات خلافات قضايا",
+        link: "#practice"
+    },
+
+    {
+        title: "العقارات",
+        category: "مجالات العمل",
+        keywords: "عقار عقارات ملكية بيع شراء",
+        link: "#practice"
+    },
+
+
+    // Process
+    {
+        title: "الاستشارة الأولى",
+        category: "كيف نعمل؟",
+        keywords: "استشارة بداية سؤال",
+        link: "#process"
+    },
+
+    {
+        title: "دراسة الحالة",
+        category: "كيف نعمل؟",
+        keywords: "دراسة مستندات ملف حالة",
+        link: "#process"
+    },
+
+    {
+        title: "تحليل الخيارات",
+        category: "كيف نعمل؟",
+        keywords: "تحليل خيارات حلول",
+        link: "#process"
+    },
+
+    {
+        title: "وضع الاستراتيجية",
+        category: "كيف نعمل؟",
+        keywords: "استراتيجية خطة عمل",
+        link: "#process"
+    },
+
+
+    // Team
+    {
+        title: "فريق المحامين",
+        category: "فريقنا",
+        keywords: "محامي محامين فريق خبرة",
+        link: "#team"
+    },
+
+
+    // Insights
+    {
+        title: "متى تحتاج إلى استشارة قانونية؟",
+        category: "المعرفة القانونية",
+        keywords: "استشارة متى احتاج نصيحة رأي قانوني",
+        link: "#insights"
+    },
+
+    {
+        title: "أهمية مراجعة العقود قبل التوقيع",
+        category: "المعرفة القانونية",
+        keywords: "عقود توقيع مراجعة اتفاقية",
+        link: "#insights"
+    },
+
+    {
+        title: "ما الذي يجب معرفته قبل بدء أي إجراء قانوني؟",
+        category: "المعرفة القانونية",
+        keywords: "إجراءات قانونية بداية قضية",
+        link: "#insights"
+    },
+
+    {
+        title: "الفرق بين الاستشارة والتمثيل القانوني",
+        category: "المعرفة القانونية",
+        keywords: "تمثيل استشارة محامي",
+        link: "#insights"
+    },
+
+
+    // FAQ
+    {
+        title: "كيف يمكن حجز استشارة؟",
+        category: "الأسئلة الشائعة",
+        keywords: "حجز موعد استشارة",
+        link: "#faq"
+    },
+
+    {
+        title: "ما المعلومات المطلوبة في الاستشارة الأولى؟",
+        category: "الأسئلة الشائعة",
+        keywords: "معلومات مستندات استشارة",
+        link: "#faq"
+    },
+
+    {
+        title: "هل يتم الحفاظ على سرية المعلومات؟",
+        category: "الأسئلة الشائعة",
+        keywords: "سرية خصوصية معلومات",
+        link: "#faq"
+    },
+
+    {
+        title: "هل يقدم المكتب خدمات للشركات؟",
+        category: "الأسئلة الشائعة",
+        keywords: "شركات خدمات مكتب",
+        link: "#faq"
+    },
+
+    {
+        title: "كيف يمكن التواصل مع المكتب؟",
+        category: "الأسئلة الشائعة",
+        keywords: "تواصل هاتف بريد",
+        link: "#faq"
+    }
+
+];
+
+
+/* فتح البحث */
+
+function openSearch() {
+
+    searchOverlay.classList.add("open");
+
+    searchOverlay.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+
+    setTimeout(() => {
+        siteSearch.focus();
+    }, 250);
+}
+
+
+/* إغلاق البحث */
+
+function closeSearch() {
+
+    searchOverlay.classList.remove("open");
+
+    searchOverlay.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+
+    siteSearch.value = "";
+
+    searchResults.innerHTML = `
+        <p class="search-hint">
+            ابدأ بكتابة ما تبحث عنه...
+        </p>
+    `;
+}
+
+
+/* فتح */
+
+searchToggle.addEventListener("click", openSearch);
+
+
+/* إغلاق */
+
+searchClose.addEventListener("click", closeSearch);
+
+
+/* الضغط خارج صندوق البحث */
+
+searchOverlay.addEventListener("click", (event) => {
+
+    if (event.target === searchOverlay) {
+        closeSearch();
+    }
+
+});
+
+
+/* البحث */
+
+siteSearch.addEventListener("input", () => {
+
+    const query = siteSearch.value
+        .trim()
+        .toLowerCase();
+
+    if (!query) {
+
+        searchResults.innerHTML = `
+            <p class="search-hint">
+                ابدأ بكتابة ما تبحث عنه...
+            </p>
+        `;
+
+        return;
+    }
+
+
+    const results = searchableContent.filter(item => {
+
+        const text = `
+            ${item.title}
+            ${item.category}
+            ${item.keywords}
+        `.toLowerCase();
+
+        return text.includes(query);
+
+    });
+
+
+    if (!results.length) {
+
+        searchResults.innerHTML = `
+            <div class="search-no-results">
+
+                <strong>لم نجد ما تبحث عنه</strong>
+
+                <span>
+                    جرّب كلمة أخرى مثل "عقود" أو "شركات" أو "استشارة".
+                </span>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    searchResults.innerHTML = results.map(item => `
+
+        <a
+            class="search-result"
+            href="${item.link}"
+        >
+
+            <div class="search-result-info">
+
+                <span class="search-result-category">
+                    ${item.category}
+                </span>
+
+                <span class="search-result-title">
+                    ${item.title}
+                </span>
+
+            </div>
+
+            <span class="search-result-arrow">
+                ←
+            </span>
+
+        </a>
+
+    `).join("");
+
+
+    /* إغلاق البحث بعد اختيار نتيجة */
+
+    searchResults
+        .querySelectorAll(".search-result")
+        .forEach(result => {
+
+            result.addEventListener("click", () => {
+                closeSearch();
+            });
+
+        });
+
+});
+
+
+/* ESC */
+
+document.addEventListener("keydown", (event) => {
+
+    if (
+        event.key === "Escape" &&
+        searchOverlay.classList.contains("open")
+    ) {
+        closeSearch();
+    }
+
+});
