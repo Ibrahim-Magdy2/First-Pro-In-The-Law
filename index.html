@@ -494,7 +494,118 @@
   <div class="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="إغلاق">×</button><button
       class="lightbox-prev" aria-label="الصورة السابقة">→</button><img src="" alt=""><button class="lightbox-next"
       aria-label="الصورة التالية">←</button></div>
-  <script src="script.js"></script>
+
+<!-- =========================
+     AI LEGAL ASSISTANT
+========================= -->
+
+<button
+  class="ai-assistant-button"
+  id="aiAssistantButton"
+  aria-label="فتح المساعد الذكي"
+>
+  <span class="ai-spark">✦</span>
+  <span class="ai-button-text">المساعد الذكي</span>
+</button>
+
+<div
+  class="ai-chat"
+  id="aiChat"
+  aria-hidden="true"
+>
+  <div class="ai-chat-header">
+
+    <div class="ai-chat-title">
+      <div class="ai-avatar">✦</div>
+
+      <div>
+        <strong>YourBrand AI</strong>
+        <small>المساعد القانوني الذكي</small>
+      </div>
+    </div>
+
+    <button
+      class="ai-close"
+      id="aiClose"
+      aria-label="إغلاق المساعد"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <div class="ai-disclaimer">
+    المساعد يقدم معلومات توعوية عامة ولا يُعد بديلاً عن الاستشارة القانونية الرسمية.
+  </div>
+
+  <div
+    class="ai-messages"
+    id="aiMessages"
+  >
+
+    <div class="ai-message ai-message-bot">
+      <div class="ai-message-avatar">✦</div>
+
+      <div class="ai-message-content">
+        <p>
+          أهلًا بك في YourBrand 👋
+        </p>
+
+        <p>
+          أنا المساعد الذكي للمكتب. يمكنني مساعدتك في التعرف على خدماتنا،
+          فهم سؤالك بشكل مبدئي، وتوجيهك إلى الخدمة المناسبة.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ai-quick-actions">
+
+    <button data-question="أريد حجز استشارة قانونية">
+      حجز استشارة
+    </button>
+
+    <button data-question="ما هي الخدمات التي يقدمها المكتب؟">
+      خدمات المكتب
+    </button>
+
+    <button data-question="لدي مشكلة في عقد">
+      مشكلة في عقد
+    </button>
+
+    <button data-question="لدي مشكلة قانونية وأريد معرفة الخدمة المناسبة">
+      تحديد الخدمة المناسبة
+    </button>
+
+  </div>
+
+  <form
+    class="ai-input-area"
+    id="aiForm"
+  >
+
+    <input
+      type="text"
+      id="aiInput"
+      placeholder="اكتب سؤالك هنا..."
+      autocomplete="off"
+    >
+
+    <button
+      type="submit"
+      aria-label="إرسال"
+    >
+      ↑
+    </button>
+
+  </form>
+
+</div>
+
+<script src="script.js"></script>
+
+  
 </body>
 
 </html>

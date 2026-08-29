@@ -397,3 +397,435 @@ document.addEventListener("keydown", (event) => {
     }
 
 });
+
+
+/* =========================================
+   AI LEGAL ASSISTANT
+========================================= */
+
+const aiButton = document.getElementById("aiAssistantButton");
+const aiChat = document.getElementById("aiChat");
+const aiClose = document.getElementById("aiClose");
+const aiForm = document.getElementById("aiForm");
+const aiInput = document.getElementById("aiInput");
+const aiMessages = document.getElementById("aiMessages");
+const aiQuickActions = document.querySelectorAll(
+    ".ai-quick-actions button"
+);
+
+
+/* =========================================
+   OPEN / CLOSE
+========================================= */
+
+function openAI() {
+
+    aiChat.classList.add("open");
+
+    aiChat.setAttribute("aria-hidden", "false");
+
+    setTimeout(() => {
+        aiInput.focus();
+    }, 250);
+
+}
+
+
+function closeAI() {
+
+    aiChat.classList.remove("open");
+
+    aiChat.setAttribute("aria-hidden", "true");
+
+}
+
+
+aiButton.addEventListener("click", openAI);
+
+aiClose.addEventListener("click", closeAI);
+
+
+/* =========================================
+   ADD MESSAGE
+========================================= */
+
+function addAIMessage(message, type = "bot") {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className =
+        type === "user"
+            ? "ai-message ai-message-user"
+            : "ai-message ai-message-bot";
+
+
+    if (type === "bot") {
+
+        wrapper.innerHTML = `
+            <div class="ai-message-avatar">✦</div>
+
+            <div class="ai-message-content">
+                ${message}
+            </div>
+        `;
+
+    } else {
+
+        wrapper.innerHTML = `
+            <div class="ai-message-content">
+                ${message}
+            </div>
+        `;
+
+    }
+
+
+    aiMessages.appendChild(wrapper);
+
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+
+}
+
+
+/* =========================================
+   TYPING
+========================================= */
+
+function showTyping() {
+
+    const typing = document.createElement("div");
+
+    typing.className =
+        "ai-message ai-message-bot";
+
+    typing.id = "aiTypingMessage";
+
+    typing.innerHTML = `
+        <div class="ai-message-avatar">✦</div>
+
+        <div class="ai-message-content">
+
+            <div class="ai-typing">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+    `;
+
+    aiMessages.appendChild(typing);
+
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+
+}
+
+
+function removeTyping() {
+
+    const typing =
+        document.getElementById("aiTypingMessage");
+
+    if (typing) {
+        typing.remove();
+    }
+
+}
+
+
+/* =========================================
+   LOCAL DEMO AI
+========================================= */
+
+function getDemoAIResponse(question) {
+
+    const q = question.toLowerCase();
+
+
+    if (
+        q.includes("حجز") ||
+        q.includes("موعد") ||
+        q.includes("استشارة")
+    ) {
+
+        return `
+            <p>
+                بالتأكيد. يمكنك طلب استشارة قانونية من خلال نموذج التواصل الموجود في الموقع.
+            </p>
+
+            <p>
+                إذا أردت، يمكنك الانتقال مباشرة إلى قسم
+                <strong>تواصل معنا</strong>
+                لإرسال طلبك.
+            </p>
+
+            <p>
+                <a
+                    href="#contact"
+                    style="color:var(--gold2);text-decoration:underline;"
+                    onclick="closeAI()"
+                >
+                    احجز استشارتك الآن ↗
+                </a>
+            </p>
+        `;
+
+    }
+
+
+    if (
+        q.includes("خدمات") ||
+        q.includes("الخدمات")
+    ) {
+
+        return `
+            <p>
+                يقدم المكتب مجموعة من الخدمات القانونية، منها:
+            </p>
+
+            <p>
+                • الاستشارات القانونية<br>
+                • القضايا الجنائية<br>
+                • القضايا المدنية<br>
+                • القضايا التجارية<br>
+                • قانون الشركات<br>
+                • العقود والاتفاقيات<br>
+                • المنازعات العقارية<br>
+                • قضايا الأسرة
+            </p>
+
+            <p>
+                ويمكنني مساعدتك في تحديد الخدمة الأقرب إلى موضوعك.
+            </p>
+        `;
+
+    }
+
+
+    if (
+        q.includes("عقد") ||
+        q.includes("عقود") ||
+        q.includes("اتفاقية") ||
+        q.includes("اتفاقيات")
+    ) {
+
+        return `
+            <p>
+                إذا كان استفسارك متعلقًا بعقد أو اتفاقية،
+                فالمكتب يقدم خدمات صياغة ومراجعة العقود والاتفاقيات.
+            </p>
+
+            <p>
+                أخبرني بشكل عام: هل تريد
+                <strong>مراجعة عقد</strong>
+                أم
+                <strong>صياغة عقد جديد</strong>
+                أم لديك مشكلة بعد توقيع العقد؟
+            </p>
+        `;
+
+    }
+
+
+    if (
+        q.includes("شركة") ||
+        q.includes("شركات") ||
+        q.includes("تجاري") ||
+        q.includes("أعمال")
+    ) {
+
+        return `
+            <p>
+                يقدم المكتب خدمات قانونية مرتبطة بالشركات والأعمال،
+                بما في ذلك التأسيس والحوكمة والعقود والعمليات التجارية.
+            </p>
+
+            <p>
+                إذا أخبرتني بنوع احتياجك بشكل عام،
+                أستطيع توجيهك إلى القسم المناسب.
+            </p>
+        `;
+
+    }
+
+
+    if (
+        q.includes("عقار") ||
+        q.includes("عقارات") ||
+        q.includes("ملكية")
+    ) {
+
+        return `
+            <p>
+                يقدم المكتب خدمات مرتبطة بالمنازعات العقارية
+                ومسائل الملكية والتعاملات العقارية.
+            </p>
+
+            <p>
+                يمكنك وصف المشكلة بشكل عام،
+                وسأساعدك في تحديد نوع الخدمة الأقرب إليها.
+            </p>
+        `;
+
+    }
+
+
+    if (
+        q.includes("جنائي") ||
+        q.includes("جنائية") ||
+        q.includes("قضية")
+    ) {
+
+        return `
+            <p>
+                يبدو أن استفسارك قد يكون مرتبطًا بمسألة نزاع أو قضية قانونية.
+            </p>
+
+            <p>
+                لأن تفاصيل كل حالة تختلف،
+                لا أستطيع تحديد موقف قانوني نهائي من خلال المساعد.
+                لكن يمكنني مساعدتك في تحديد نوع الخدمة المناسبة
+                أو توجيهك إلى حجز استشارة مع المكتب.
+            </p>
+
+            <p>
+                <a
+                    href="#contact"
+                    style="color:var(--gold2);text-decoration:underline;"
+                    onclick="closeAI()"
+                >
+                    طلب استشارة ↗
+                </a>
+            </p>
+        `;
+
+    }
+
+
+    return `
+        <p>
+            أفهم سؤالك.
+        </p>
+
+        <p>
+            أستطيع مساعدتك في التعرف على خدمات المكتب،
+            تحديد نوع الخدمة الأقرب إلى استفسارك،
+            أو توجيهك إلى حجز استشارة.
+        </p>
+
+        <p>
+            جرّب أن تخبرني مثلًا:
+            <br>
+            "عندي مشكلة في عقد"
+            <br>
+            أو
+            <br>
+            "أريد حجز استشارة"
+        </p>
+    `;
+
+}
+
+
+/* =========================================
+   SEND MESSAGE
+========================================= */
+
+async function sendAIMessage(question) {
+
+    question = question.trim();
+
+    if (!question) return;
+
+
+    addAIMessage(
+        `<p>${escapeHTML(question)}</p>`,
+        "user"
+    );
+
+
+    aiInput.value = "";
+
+    showTyping();
+
+
+    await new Promise(resolve => {
+        setTimeout(resolve, 900);
+    });
+
+
+    removeTyping();
+
+
+    const response =
+        getDemoAIResponse(question);
+
+
+    addAIMessage(response, "bot");
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+aiForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    sendAIMessage(aiInput.value);
+
+});
+
+
+/* =========================================
+   QUICK QUESTIONS
+========================================= */
+
+aiQuickActions.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const question =
+            button.dataset.question;
+
+        sendAIMessage(question);
+
+    });
+
+});
+
+
+/* =========================================
+   SECURITY
+========================================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   ESC CLOSE
+========================================= */
+
+document.addEventListener("keydown", event => {
+
+    if (
+        event.key === "Escape" &&
+        aiChat.classList.contains("open")
+    ) {
+
+        closeAI();
+
+    }
+
+});
